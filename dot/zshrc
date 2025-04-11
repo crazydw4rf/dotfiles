@@ -31,7 +31,6 @@ if [ ! -d "$NVM_DIR" ]; then
   [ ! -d "$NVM_DIR" ] && mkdir -p "$NVM_DIR"
   source /usr/share/nvm/nvm.sh
   source /usr/share/nvm/bash_completion
-  source /usr/share/nvm/install-nvm-exec
 fi
 
 export GOPATH="$DATA_DIR/go"
