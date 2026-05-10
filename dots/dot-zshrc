@@ -88,7 +88,7 @@ zi snippet OMZT::fishy
 (( $+commands[fzf] ))     && source <(fzf --zsh)
 (( $+commands[zoxide] ))  && source <(zoxide init zsh)
 
-[ -x "$HOME/.aliases" ]   && source "$HOME/.aliases"
+[ -f "$HOME/.aliases" ]   && source "$HOME/.aliases"
 
 [[ "$TERM_PROGRAM" == "tmux" || -z "$TERM_PROGRAM" ]] && {
   (( $+commands[fastfetch] )) && fastfetch
