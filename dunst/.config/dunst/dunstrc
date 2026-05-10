@@ -1,0 +1,24 @@
+[global]
+font = "Sans 11"
+geometry = "300x70+0+0"
+format = "%a\n%s: %b"               # show app name first
+
+foreground = "#F8F8F2"              # white/bone text
+background = "#1E1E1ECC"            # semi-transparent black/gray
+frame_color = "#CCCCFF"             # cyan border
+
+corner_radius = 6
+padding = 12
+horizontal_padding = 15
+icon_position = off
+width = 450
+height = (50, 250)
+
+[urgency_low]
+timeout = 5
+
+[urgency_normal]
+timeout = 8
+
+[urgency_critical]
+timeout = 0

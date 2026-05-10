@@ -1,0 +1,49 @@
+[env]
+TERM = "xterm-256color"
+
+[terminal.shell]
+program = "/usr/bin/zsh"
+args = ["-l"]
+
+[window]
+decorations = "None"
+dynamic_padding = true
+padding = { x = 0, y = 0 }
+opacity = 1
+blur = true
+
+[font]
+normal = { family = "ZedMono Nerd Font", style = "Medium" }
+bold = { family = "ZedMono Nerd Font", style = "Bold" }
+italic = { family = "ZedMono Nerd Font", style = "Italic" }
+bold_italic = { family = "ZedMono Nerd Font", style = "Bold Italic" }
+size = 10
+
+[cursor]
+# style = { shape = "Beam", blinking = "On" }
+thickness = 0.30
+blink_interval = 200
+blink_timeout = 0
+
+[colors.cursor]
+cursor = "#d4a800"
+text = "#faf4ed"
+
+[mouse]
+hide_when_typing = true
+bindings = [{ mouse = "Right", mods = "Control", action = "Paste" }]
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[general]
+live_config_reload = true
+import = ["~/.config/alacritty/themes/rose-pine-moon.toml"]
+
+[terminal]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
