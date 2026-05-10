@@ -1,0 +1,37 @@
+# [Created by task 3.4.2 3/10/2026 10:32:16]
+data.location=/var/lib/yura/.task
+news.version=3.4.2
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and update location config as follows:
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+# Color theme (uncomment one to use)
+#include light-16.theme
+#include light-256.theme
+#include bubblegum-256.theme
+#include dark-16.theme
+#include dark-256.theme
+#include dark-red-256.theme
+#include dark-green-256.theme
+#include dark-blue-256.theme
+#include dark-violets-256.theme
+#include dark-yellow-green.theme
+#include dark-gray-256.theme
+#include dark-gray-blue-256.theme
+#include solarized-dark-256.theme
+#include solarized-light-256.theme
+#include no-color.theme
+
+color.overdue=bold white on red
+color.due.today=bold underline red
+color.due.tomorrow=bold yellow
+color.alternate=on gray2
+
+color.label=cyan
+dateformat=M-DTH:N
+report.list.columns=id,entry.age,tags,due,due.countdown,description,urgency
+report.list.labels=ID,Age,Tags,Due,TL,Description,Urg
+print.empty.columns=yes

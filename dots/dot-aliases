@@ -1,0 +1,8 @@
+# vim: set filetype=zsh syntax=bash :
+
+alias ls='exa --color=auto --icons=auto'
+alias cd='z'
+alias d='docker'
+alias code='nvim'
+alias podamn='podman'
+alias docker='podman'

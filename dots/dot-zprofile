@@ -1,0 +1,18 @@
+export NPM_CONFIG_PREFIX="$HOME/.local"
+export MANPAGER='nvim +Man!'
+
+export DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}"
+export GOPATH="$DATA_DIR/go"
+
+export PATH="$HOME/.local/bin:\
+$GOPATH/bin:\
+$HOME/.bun/bin:\
+$HOME/.cargo/bin:\
+$HOME/.pub-cache/bin:\
+$HOME/fvm/versions/stable/bin/cache/dart-sdk/bin:\
+$HOME/fvm/versions/stable/bin:\
+$PATH"
+
+export BAT_THEME=dark
+export QT_QPA_PLATFORMTHEM=qt6ct
+export QT_STYLE_OVERRIDE=kvantum

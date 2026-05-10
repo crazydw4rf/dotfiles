@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "template": "<#54EFFE>c<#FFD35E>r<#54EFFE>a<#FFD35E>z<#54EFFE>y<#FFD35E>d<#54EFFE>w<#FFD35E>4<#54EFFE>r<#FFD35E>f<#FFF>@<#54EFFE>\ueb59<#FFF> ‿ <#FFD35E><f>\ueb59</f> {{if .Root}}<#F93827>#{{else}}<#42A5E7>${{end}}",
+          "type": "text",
+          "style": "plain",
+          "cache": {
+            "duration": "infinite",
+            "strategy": "session"
+          }
+        }
+      ]
+    }
+  ],
+  "version": 3,
+  "final_space": true
+}
