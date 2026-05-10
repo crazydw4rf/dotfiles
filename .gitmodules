@@ -1,1 +1,4 @@
 
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/binarstrike/nvim-config.git
