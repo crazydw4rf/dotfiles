@@ -23,6 +23,11 @@ ethernet eth0 {
   format_down = "eth0: down"
 }
 
+ethernet wg0 {
+  format_up = "wg0: %ip"
+  format_down = "wg0: down"
+}
+
 battery all {
   format = "%status %percentage"
 }
@@ -32,13 +37,13 @@ load {
 }
 
 memory {
-  format = "MEM: %used"
+  format = "Chrome: %used"
   threshold_degraded = "1G"
   format_degraded = "MEMORY < %available"
 }
 
 tztime local {
-  format = "%Y-%b-%d %I:%M %p |"
+  format = "%Y-%b-%d %I:%M %p "
 }
 
 #ipv6 {
@@ -48,11 +53,6 @@ tztime local {
 
 disk "/" {
   format = "Collected Evidence: %used"
-}
-
-ethernet wg0 {
-  format_up = "wg0: %ip"
-  format_down = "wg0: down"
 }
 
 

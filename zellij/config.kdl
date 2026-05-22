@@ -104,7 +104,7 @@ serialize_pane_viewport false
 scrollback_lines_to_serialize 10000
 default_layout "compact"
 default_mode "normal"
-mouse_mode false
+mouse_mode true
 scroll_buffer_size 10000
 copy_clipboard "system"
 copy_on_select true

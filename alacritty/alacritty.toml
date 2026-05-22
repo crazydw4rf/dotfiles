@@ -10,19 +10,19 @@ decorations = "None"
 dynamic_padding = true
 padding = { x = 0, y = 0 }
 opacity = 1
-blur = true
+blur = false
 
 [font]
 normal = { family = "ZedMono Nerd Font", style = "Medium" }
 bold = { family = "ZedMono Nerd Font", style = "Bold" }
 italic = { family = "ZedMono Nerd Font", style = "Italic" }
 bold_italic = { family = "ZedMono Nerd Font", style = "Bold Italic" }
-size = 8
+size = 10
 
 [cursor]
-# style = { shape = "Beam", blinking = "On" }
+style = { shape = "Beam", blinking = "On" }
 thickness = 0.30
-blink_interval = 200
+blink_interval = 250
 blink_timeout = 0
 
 [colors.cursor]

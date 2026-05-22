@@ -2,19 +2,21 @@ font pango:DejaVu Sans Mono 8
 
 exec --no-startup-id dex -a -e i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l dimblur
-exec --no-startup-id nm-applet
 exec --no-startup-id picom
 exec --no-startup-id clipcatd
 exec --no-startup-id feh --bg-fill $HOME/.wallpaper
-exec --no-startup-id exec volumeicon
 exec --no-startup-id xset dpms 620
+exec --no-startup-id dunst
+exec --no-startup-id snixembed
+exec --no-startup-id systemctl --user import-environment DISPLAY XDG_CURRENT_DESKTOP
+exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY XDG_CURRENT_DESKTOP
 exec --no-startup-id xidlehook \
   --not-when-audio \
   --not-when-fullscreen \
   --timer 600 "brightnessctl -s set 10%" "brightnessctl -r" \
-  --timer 900 "brightnessctl -r && systemctl suspend" "true"
+  --timer 900 "brightnessctl -r;systemctl suspend" "true"
 
-exec_always --no-startup-id exec xrandr --output eDP-1 --scale 1x1
+exec_always --no-startup-id xrandr --output eDP-1 --scale 1
 
 include keybinds
 include window_rules

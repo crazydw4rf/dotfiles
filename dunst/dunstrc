@@ -1,24 +1,61 @@
 [global]
-font = "Sans 11"
-geometry = "300x70+0+0"
-format = "%a\n%s: %b"               # show app name first
+    monitor = 0
+    follow = none
 
-foreground = "#F8F8F2"              # white/bone text
-background = "#1E1E1ECC"            # semi-transparent black/gray
-frame_color = "#CCCCFF"             # cyan border
+    width = (0, 400)
+    height = (0, 250)
+    origin = top-right
+    offset = (12, 40)
+    gap_size = 6
 
-corner_radius = 6
-padding = 12
-horizontal_padding = 15
-icon_position = off
-width = 450
-height = (50, 250)
+    frame_width = 1
+    frame_color = "#285577"
+    corner_radius = 0
+    padding = 10
+    horizontal_padding = 12
+    text_icon_padding = 8
+    separator_height = 1
+    separator_color = frame
+
+    font = "DejaVu Sans Mono 12"
+    markup = full
+    format = "<small>%a</small>\n<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    word_wrap = true
+    ellipsize = end
+
+    icon_position = left
+    min_icon_size = 24
+    max_icon_size = 48
+    enable_recursive_icon_lookup = true
+    icon_theme = "Adwaita"
+
+    mouse_left_click = do_action, close_current
+    mouse_middle_click = close_current
+    mouse_right_click = close_all
+
+    sort = urgency_descending
+    stack_duplicates = true
+    history_length = 20
+    sticky_history = yes
+
+    layer = overlay
 
 [urgency_low]
-timeout = 5
+    background = "#000000D5"
+    foreground = "#ffffff"
+    frame_color = "#285577"
+    timeout = 4
 
 [urgency_normal]
-timeout = 8
+    background = "#000000D5"
+    foreground = "#ffffff"
+    frame_color = "#285577"
+    timeout = 8
 
 [urgency_critical]
-timeout = 0
+    background = "#000000D5"
+    foreground = "#ffffff"
+    frame_color = "#ff5555"
+    timeout = 0

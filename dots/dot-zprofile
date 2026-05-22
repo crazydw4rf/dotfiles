@@ -13,6 +13,6 @@ $HOME/fvm/versions/stable/bin/cache/dart-sdk/bin:\
 $HOME/fvm/versions/stable/bin:\
 $PATH"
 
-export BAT_THEME=dark
 export QT_QPA_PLATFORMTHEM=qt6ct
 export QT_STYLE_OVERRIDE=kvantum
+

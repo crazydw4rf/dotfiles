@@ -1,4 +1,5 @@
 --target=~/.config
 --ignore=.stowrc
 --ignore=dots
+--ignore=justfile
 --dotfiles

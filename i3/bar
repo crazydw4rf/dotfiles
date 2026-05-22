@@ -1,8 +1,8 @@
 bar {
-  font pango:DejaVu Sans Mono 10
-  status_command i3status
+  font pango:Zed Mono NF Regular 10
+  status_command i3status-rs
   tray_output primary
-  tray_padding 3
+  tray_padding 4
   position bottom
   colors {
     background #151515

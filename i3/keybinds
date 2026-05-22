@@ -1,31 +1,38 @@
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2%-
-
 set $up k
 set $down j
-set $left l
-set $right h
+set $left h
+set $right l
 set $mod Mod4
+
+set $script ~/.config/i3/scripts
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 bindsym $mod+q kill
 bindsym $mod+Return exec alacritty
-bindsym $mod+space exec i3-dmenu-desktop
-bindsym $mod+v exec clipcat-menu
+bindsym $mod+space exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+v exec --no-startup-id clipcat-menu -f rofi
 bindsym $mod+e exec nautilus
-bindsym $mod+Shift+s exec sh -c "maim -s | xclip -selection clipboard -t image/png"
-bindsym $mod+Shift+x exec betterlockscreen -l dimblur
+bindsym $mod+Shift+v exec --no-startup-id $script/audio_dev_switcher.sh
+bindsym $mod+Shift+a exec --no-startup-id scrot ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
+bindsym $mod+Shift+d exec --no-startup-id scrot -u ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
+bindsym $mod+Shift+s exec --no-startup-id scrot -s -f ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
+bindsym Mod1+Shift+a exec --no-startup-id scrot ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'swappy -f $f'
+bindsym Mod1+Shift+d exec --no-startup-id scrot -u ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'swappy -f $f'
+bindsym Mod1+Shift+s exec --no-startup-id scrot -s -f ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'swappy -f $f'
+bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dimblur
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2%-
 
 # change focus
 bindsym $mod+$left focus left
@@ -61,9 +68,12 @@ bindsym $mod+p split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+Shift+s layout stacking
+bindsym Mod1+Shift+x layout stacking
 bindsym Mod1+Shift+w layout tabbed
 bindsym Mod1+Shift+e layout toggle split
+
+bindsym $mod+bracketright workspace next
+bindsym $mod+bracketleft workspace prev
 
 # toggle tiling / floating
 bindsym $mod+s floating toggle
@@ -78,7 +88,7 @@ bindsym $mod+Shift+z focus parent
 bindsym $mod+d focus child
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+plus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -154,3 +164,17 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+set $power_menu "Power Menu: [s]leep [h]ibernate [r]eboot [u]shutdown"
+
+mode $power_menu {
+  bindsym s exec --no-startup-id systemctl suspend; mode "default"
+  bindsym h exec --no-startup-id sh -c "loginctl lock-session && systemctl hibernate"; mode "default"
+  bindsym r exec --no-startup-id systemctl reboot; mode "default"
+  bindsym u exec --no-startup-id systemctl poweroff; mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+b mode $power_menu
