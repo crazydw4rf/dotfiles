@@ -22,7 +22,7 @@ interval = "once"
 
 [[block]]
 block = "music"
-format = " $icon  {$title.str(max_w:20,rot_interval:0.8) - $artist.str(max_w:15) |}"
+format = " 󰝚  {$title.str(max_w:15,rot_interval:0.8) - $artist.str(max_w:15) |}"
 interface_name_exclude = ["playerctld"]
 click = [
   { button = "left", action = "play_pause" },
