@@ -25,7 +25,7 @@ bindsym $mod+Shift+s exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%
 bindsym Mod1+Shift+a exec grim - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
 bindsym Mod1+Shift+d exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
 bindsym Mod1+Shift+s exec grim -g "$(slurp)" - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-bindsym $mod+Shift+x exec betterlockscreen -l dimblur
+bindsym $mod+Shift+x exec hyprlock
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
