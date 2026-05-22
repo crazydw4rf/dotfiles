@@ -1,0 +1,86 @@
+[theme.overrides]
+idle_bg = "#151515"
+info_bg = "#151515"
+good_bg = "#151515"
+warning_bg = "#151515"
+critical_bg = "#151515"
+separator_bg = "#151515"
+idle_fg = "#FFFFFF"
+info_fg = "#00FFFF"
+separator_fg = "#CCCCFF"
+good_fg = "#00FF00"
+warning_fg = "#FFFF00"
+critical_fg = "#FF0000"
+
+# [icons]
+# icons = "material-nf"
+
+[[block]]
+block = "custom"
+command = "printf \"Arch BTW [%s]\" $(uname -r)"
+interval = "once"
+
+[[block]]
+block = "music"
+format = " $icon  {$title.str(max_w:20,rot_interval:0.8) - $artist.str(max_w:15) |}"
+interface_name_exclude = ["playerctld"]
+click = [
+  { button = "left", action = "play_pause" },
+  { button = "right", action = "next" },
+]
+
+[[block]]
+block = "net"
+device = "^wlan0$"
+format = " wlan0: $ip ($ssid)[$signal_strength] "
+inactive_format = ""
+missing_format = ""
+
+[[block]]
+block = "net"
+device = "^eth0$"
+format = " eth0: $ip "
+inactive_format = ""
+missing_format = ""
+
+[[block]]
+block = "battery"
+format = " BAT: (DISC)[$percentage] "
+full_format = " BAT: (FULL)[$percentage] "
+charging_format = " BAT: ($icon)[$percentage] "
+not_charging_format = " BAT: (DISC)[$percentage] "
+empty_format = " BAT: (VOID)[$percentage] "
+full_threshold = 100
+missing_format = " battery: not found "
+[block.icons_overrides]
+bat_charging = "CHR"
+bat_not_available = "N/A"
+
+[[block]]
+block = "disk_space"
+path = "/"
+format = " Collected Evidence: $used.eng(prefix:G) "
+
+[[block]]
+block = "load"
+format = " Suffering Lvl: $1m.eng(w:4) "
+
+[[block]]
+block = "memory"
+format = " Chrome: $mem_used.eng(prefix:G,w:4) "
+
+[[block]]
+block = "sound"
+format = " $icon: {$volume|MUT} "
+step_width = 2
+
+[[block]]
+block = "backlight"
+format = " $icon: $brightness "
+missing_format = " Why so dark here "
+minimum = 1
+step_width = 2
+
+[[block]]
+block = "time"
+format = " $timestamp.datetime(f:'%Y-%b-%d %I:%M %p') \\|"
