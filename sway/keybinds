@@ -132,8 +132,6 @@ bindsym Mod1+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# exit sway (logs you out of your X session)
-bindsym $mod+Shift+q exec "sway-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your X session.' -B 'Yes, exit sway' 'swaymsg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -162,17 +160,18 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $power_menu "Power Menu: [s]leep [h]ibernate [r]eboot [u]shutdown"
+set $power_menu "Power Menu: [s]leep [h]ibernate [l]ogout [r]eboot [u]shutdown"
 
 mode $power_menu {
   bindsym s exec systemctl suspend; mode "default"
   bindsym h exec sh -c "loginctl lock-session && systemctl hibernate"; mode "default"
   bindsym r exec systemctl reboot; mode "default"
   bindsym u exec systemctl poweroff; mode "default"
+  bindsym l exec swaymsg exit
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
 
-bindsym $mod+b mode $power_menu
+bindsym $mod+backspace mode $power_menu
 
