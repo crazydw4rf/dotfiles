@@ -1,16 +1,13 @@
-font pango:ZedMono NF Medium 1
+font pango:ZedMono NF Medium 8
 titlebar_border_thickness 0
-titlebar_padding 0
+titlebar_padding 1
 
 exec dex -a -e sway
 exec swaybg -m fill -i $HOME/.wallpaper
 exec dunst
 exec swayidle
-exec systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
-exec hash dbus-update-activation-environment 2>/dev/null && \
-     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 

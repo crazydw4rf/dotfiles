@@ -49,7 +49,7 @@ format = " BAT: (DISC)[$percentage] "
 full_format = " BAT: (FULL)[$percentage] "
 charging_format = " BAT: ($icon)[$percentage] "
 not_charging_format = " BAT: (DISC)[$percentage] "
-empty_format = " BAT: (VOID)[$percentage] "
+empty_format = " BAT: (CRIT)[$percentage] "
 full_threshold = 100
 missing_format = " battery: not found "
 [block.icons_overrides]
