@@ -3,12 +3,6 @@
 export ZELLIJ_AUTO_ATTACH=false
 export ZELLIJ_AUTO_EXIT=true
 
-export GUM_FILTER_PROMPT_FOREGROUND="#575279"
-export GUM_FILTER_TEXT_FOREGROUND="#575279"
-export GUM_FILTER_MATCH_FOREGROUND="#D7827E"
-export GUM_FILTER_INDICATOR_FOREGROUND="#56949F"
-export GUM_FILTER_PLACEHOLDER_FOREGROUND="#9893A5"
-
 if (( $+commands[zellij] )) && [[ -z "$ZELLIJ" && -z "$NVIM" && -z "$VSCODE_NONCE" && -z "$ZED_TERM" && -z "$SSH" ]]; then
   if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
     zellij attach -c
@@ -30,10 +24,10 @@ if (( $+commands[zellij] )) && [[ -z "$ZELLIJ" && -z "$NVIM" && -z "$VSCODE_NONC
 
     items+=("no-zellij")
 
-    choice=$(printf '%s\n' "${items[@]}" | gum filter --no-show-help --placeholder "zellij..." --height 15)
-    gum_status=$?
+    choice=$(printf '%s\n' "${items[@]}" | fzf --height 15 --layout=reverse-list --ghost="zellij..." --scroll-off=1 --header=" Ctrl+C/Esc to use terminal without zellij")
+    fzf_status=$?
 
-    if [[ $gum_status -eq 0 ]]; then
+    if [[ $fzf_status -eq 0 ]]; then
       if [[ "$choice" == "no-zellij" ]]; then
         true
       elif [[ "$choice" == layout:* ]]; then
@@ -108,15 +102,21 @@ function zle-keymap-select {
 }
 zle -N zle-keymap-select
 
-zle-line-init(){ echo -ne '\e[5 q' }
+zle-line-init(){
+  echo -ne '\e[5 q'
+}
 zle -N zle-line-init
 
 autoload -Uz incarg
 zle -N vicmd-incarg incarg
 zle -N vicmd-decarg incarg
 
-vicmd-incarg(){ incarg 1 }
-vicmd-decarg(){ incarg -1 }
+vicmd-incarg(){
+  incarg 1
+}
+vicmd-decarg(){
+  incarg -1
+}
 
 zle -N vicmd-incarg
 zle -N vicmd-decarg
