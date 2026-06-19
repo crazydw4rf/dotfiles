@@ -1,5 +1,6 @@
 export NPM_CONFIG_PREFIX="$HOME/.local"
 export MANPAGER='nvim +Man!'
+export EDITOR='nvim'
 
 export DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}"
 export GOPATH="$DATA_DIR/go"
@@ -15,4 +16,5 @@ $PATH"
 
 export QT_QPA_PLATFORMTHEM=qt6ct
 export QT_STYLE_OVERRIDE=kvantum
-
+export GTK_USE_PORTAL=1
+export YAZI_CONFIG_HOME="$HOME/.config/yazi"
