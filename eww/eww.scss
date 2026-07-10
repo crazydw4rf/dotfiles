@@ -1,0 +1,77 @@
+// Rosé Pine Moon Palette
+$base: #232136;
+$surface: #2a273f;
+$overlay: #393552;
+$muted: #6e6a86;
+$subtle: #908caa;
+$text: #e0def4;
+$love: #eb6f92;
+$gold: #f6c177;
+$rose: #ea9a97;
+$pine: #3e8fb0;
+$foam: #9ccfd8;
+$iris: #c4a7e7;
+
+* {
+  all: unset;
+  font-family: "Inter", "Roboto", "Ubuntu", "sans-serif";
+}
+
+window {
+  background: transparent;
+}
+
+.clock-container {
+  background-color: transparent;
+  padding: 0 48px 53px 0;
+}
+
+.month-label {
+  font-size: 82px;
+  font-weight: 700;
+  color: $iris;
+  opacity: 0.9;
+  letter-spacing: -2px;
+  margin-top: 15px; // Restore the superscript feel
+}
+
+.day-label {
+  font-size: 160px;
+  font-weight: 900;
+  color: $text;
+  letter-spacing: -6px;
+}
+
+.details-label {
+  font-size: 34px;
+  font-weight: 600;
+  color: $foam;
+  opacity: 1;
+  letter-spacing: 0.2px;
+  margin-top: -30px;
+}
+
+.quote-box {
+  margin-top: 15px;
+}
+
+.quote-label {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 600;
+  color: $text;
+  opacity: 1;
+}
+
+.link-btn {
+  all: unset;
+  color: $iris;
+  font-family: "JetBrains Mono";
+  font-size: 120px;
+  font-weight: 700;
+  padding: 60px;
+
+  &:hover {
+    color: $love;
+  }
+}

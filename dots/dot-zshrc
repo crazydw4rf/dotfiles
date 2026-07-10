@@ -1,47 +1,9 @@
-# vim: set filetype=zsh syntax=bash :
+# vim: set filetype=zsh :
+# shellcheck disable=SC2086,SC2154,SC1090,SC1091
 
 export ZELLIJ_AUTO_ATTACH=false
 export ZELLIJ_AUTO_EXIT=true
-
-function zz() {
-  if (( $+commands[zellij] )) && [[ -z "$ZELLIJ" && -z "$NVIM" && -z "$VSCODE_NONCE" && -z "$ZED_TERM" && -z "$SSH" ]]; then
-    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
-      zellij attach -c
-    else
-      layout_dir="$HOME/.config/zellij/layouts"
-      items=()
-
-      while IFS= read -r f; do
-        items+=("layout:${f:t:r}")
-      done < <(find "$layout_dir" -maxdepth 1 -name "*.kdl" 2>/dev/null)
-
-      while IFS= read -r s; do
-        [[ -n "$s" ]] && items+=("attach:$s")
-      done < <(zellij list-sessions --no-formatting 2>/dev/null | awk '!/EXITED/{print $1}')
-
-      while IFS= read -r s; do
-        [[ -n "$s" ]] && items+=("resurrect:$s")
-      done < <(zellij list-sessions --no-formatting 2>/dev/null | awk '/EXITED/{print $1}')
-
-      items+=("no-zellij")
-
-      choice=$(printf '%s\n' "${items[@]}" | fzf --height 15 --layout=reverse-list --ghost="zellij..." --scroll-off=1 --header=" Ctrl+C/Esc to use terminal without zellij")
-      fzf_status=$?
-
-      if [[ $fzf_status -eq 0 ]]; then
-        if [[ "$choice" == "no-zellij" ]]; then
-          clear
-        elif [[ "$choice" == layout:* ]]; then
-          exec zellij --layout "${choice#layout:}"
-        elif [[ "$choice" == attach:* ]]; then
-          exec zellij attach "${choice#attach:}"
-        elif [[ "$choice" == resurrect:* ]]; then
-          exec zellij attach "${choice#resurrect:}"
-        fi
-      fi
-    fi
-  fi
-}
+export EDITOR="nvim --clean"
 
 autoload -Uz compinit && compinit
 
@@ -75,7 +37,9 @@ zi snippet OMZP::git
 # prompt theme
 zi cdclear -q
 setopt promptsubst
+# shellcheck disable=SC2034
 host_color="green"
+# shellcheck disable=SC2034
 user_color="white"
 zi snippet OMZT::fishy
 
@@ -89,38 +53,63 @@ zi snippet OMZT::fishy
   (( $+commands[task] ))      && task due:today or due:tomorrow or due:2day list 2>/dev/null
 } || true
 
-KEYTIMEOUT=1
+export KEYTIMEOUT=1
 bindkey -v
-bindkey '^W' backward-kill-word
 
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]]; then
     echo -ne '\e[2 q'
-  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]]; then
+  else
     echo -ne '\e[5 q'
   fi
 }
 zle -N zle-keymap-select
 
-zle-line-init(){
+function zle-line-init {
   echo -ne '\e[5 q'
-}
+};
 zle -N zle-line-init
 
 autoload -Uz incarg
-zle -N vicmd-incarg incarg
-zle -N vicmd-decarg incarg
+zle -N incarg
 
-vicmd-incarg(){
-  incarg 1
+function vicmd-incarg {
+  zle incarg -- 1
 }
-vicmd-decarg(){
-  incarg -1
+function vicmd-decarg {
+  zle incarg -- -1
 }
-
 zle -N vicmd-incarg
 zle -N vicmd-decarg
 
 bindkey -M vicmd '^A' vicmd-incarg
 bindkey -M vicmd '^X' vicmd-decarg
+
+# text objects
+autoload -Uz select-bracketed select-quoted
+zle -N select-bracketed
+zle -N select-quoted
+for km in viopp visual; do
+  # shellcheck disable=SC2296
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $km $c select-quoted
+  done
+done
+
+# common vim motions
+bindkey -M vicmd 'H' beginning-of-line
+bindkey -M vicmd 'L' end-of-line
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^R' redo
+bindkey -M vicmd '/' fzf-history-widget
+bindkey -M vicmd '^U' up-line
+bindkey -M vicmd '^D' down-line
+bindkey '^W' backward-kill-word
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd '^V' edit-command-line
 

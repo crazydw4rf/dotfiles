@@ -1,10 +1,10 @@
+# vim: set filetype=i3config :
+
 set $up k
 set $down j
 set $left h
 set $right l
 set $mod Mod4
-
-set $script ~/.config/i3/scripts
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -14,11 +14,11 @@ floating_modifier $mod
 # tiling_drag modifier titlebar
 
 bindsym $mod+q kill
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty -1
 bindsym $mod+space exec j4-dmenu-desktop -I --dmenu="wmenu -p Launch: -i"
 bindsym $mod+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
-bindsym $mod+e exec nautilus
-bindsym $mod+Shift+v exec $script/audio_dev_switcher.sh
+bindsym $mod+e exec kitty -1 --class "yazi" -e yazi
+bindsym $mod+Shift+v exec audio_dev_switcher
 bindsym $mod+Shift+a exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim "$FILE" && wl-copy < "$FILE"
 bindsym $mod+Shift+d exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$FILE" && wl-copy < "$FILE"
 bindsym $mod+Shift+s exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(slurp)" "$FILE" && wl-copy < "$FILE"

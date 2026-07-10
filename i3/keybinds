@@ -4,8 +4,6 @@ set $left h
 set $right l
 set $mod Mod4
 
-set $script ~/.config/i3/scripts
-
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -14,11 +12,11 @@ floating_modifier $mod
 # tiling_drag modifier titlebar
 
 bindsym $mod+q kill
-bindsym $mod+Return exec alacritty
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Return exec kitty -1
+bindsym $mod+space exec --no-startup-id j4-dmenu-desktop -xI
 bindsym $mod+v exec --no-startup-id clipcat-menu -f rofi
-bindsym $mod+e exec nautilus
-bindsym $mod+Shift+v exec --no-startup-id $script/audio_dev_switcher.sh
+bindsym $mod+e exec thunar
+bindsym $mod+Shift+v exec --no-startup-id audio_dev_switcher
 bindsym $mod+Shift+a exec --no-startup-id scrot ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
 bindsym $mod+Shift+d exec --no-startup-id scrot -u ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
 bindsym $mod+Shift+s exec --no-startup-id scrot -s -f ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png -e 'xclip -selection clipboard -t image/png $f'
@@ -165,16 +163,19 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $power_menu "Power Menu: [s]leep [h]ibernate [r]eboot [u]shutdown"
+set $power_menu "Power Menu: [s]leep [h]ibernate [l]ogout [r]eboot [u]shutdown"
 
 mode $power_menu {
-  bindsym s exec --no-startup-id systemctl suspend; mode "default"
-  bindsym h exec --no-startup-id sh -c "loginctl lock-session && systemctl hibernate"; mode "default"
-  bindsym r exec --no-startup-id systemctl reboot; mode "default"
-  bindsym u exec --no-startup-id systemctl poweroff; mode "default"
+  bindsym s exec systemctl suspend; mode "default"
+  bindsym h exec sh -c "loginctl lock-session && systemctl hibernate"; mode "default"
+  bindsym r exec systemctl reboot; mode "default"
+  bindsym u exec systemctl poweroff; mode "default"
+  bindsym l exec i3-msg exit
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
 
-bindsym $mod+b mode $power_menu
+bindsym $mod+Shift+space mode $power_menu
+
+

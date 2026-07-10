@@ -1,0 +1,42 @@
+layout {
+    cwd "~"
+    tab name="foo" focus=true hide_floating_panes=true {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+        floating_panes {
+            pane {
+                height 23
+                width 119
+                x 120
+                y 1
+            }
+            pane {
+                height 23
+                width 119
+                x 54
+                y 11
+            }
+        }
+      pane
+    }
+    tab name="bar" hide_floating_panes=true {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+      	pane
+    }
+    tab name="bas" hide_floating_panes=true {
+          pane size=1 borderless=true {
+              plugin location="zellij:compact-bar"
+          }
+	pane
+    }
+    new_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+        pane cwd="~"
+    }
+}
+

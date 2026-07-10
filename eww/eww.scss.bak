@@ -1,0 +1,61 @@
+// Rosé Pine Dawn
+$base: #faf4ed;
+$muted: #9893a5;
+$subtle: #797593;
+$text: #575279;
+$rose: #d7827e;
+$iris: #907aa9;
+$foam: #56949f;
+$gold: #ea9d34;
+
+* {
+  all: unset;
+  font-family: "JetBrains Mono", monospace;
+}
+
+window {
+  background: transparent;
+  background-color: transparent;
+}
+
+label {
+  min-width: 0;
+}
+
+.clock-container {
+  background: transparent;
+  padding: 0 48px 53px 0;
+}
+
+.day-name {
+  font-size: 160px;
+  font-weight: 900;
+  color: $rose;
+  letter-spacing: -6px;
+  opacity: 0.93;
+}
+
+.bottom-line {
+  margin-top: -8px;
+  padding-right: 6px;
+}
+
+.time-display {
+  font-size: 32px;
+  font-weight: 700;
+  color: $text;
+  letter-spacing: 3px;
+}
+
+.sep {
+  font-size: 32px;
+  color: $muted;
+  opacity: 0.6;
+}
+
+.date-display {
+  font-size: 32px;
+  font-weight: 400;
+  color: $subtle;
+  letter-spacing: 2px;
+}

@@ -1,0 +1,39 @@
+#!/usr/bin/zsh
+
+if (( $+commands[zellij] )) && [[ -z "$ZELLIJ" && -z "$NVIM" && -z "$VSCODE_NONCE" && -z "$ZED_TERM" && -z "$SSH" ]]; then
+  if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+    zellij attach -c
+  else
+    layout_dir="$HOME/.config/zellij/layouts"
+    items=()
+
+    while IFS= read -r f; do
+      items+=("layout:${f:t:r}")
+    done < <(find "$layout_dir" -maxdepth 1 -name "*.kdl" 2>/dev/null)
+
+    while IFS= read -r s; do
+      [[ -n "$s" ]] && items+=("attach:$s")
+    done < <(zellij list-sessions --no-formatting 2>/dev/null | awk '!/EXITED/{print $1}')
+
+    while IFS= read -r s; do
+      [[ -n "$s" ]] && items+=("resurrect:$s")
+    done < <(zellij list-sessions --no-formatting 2>/dev/null | awk '/EXITED/{print $1}')
+
+    items+=("no-zellij")
+
+    choice=$(printf '%s\n' "${items[@]}" | fzf --height 15 --layout=reverse-list --ghost="zellij..." --scroll-off=1 --header=" Ctrl+C/Esc to use terminal without zellij")
+    fzf_status=$?
+
+    if [[ $fzf_status -eq 0 ]]; then
+      if [[ "$choice" == "no-zellij" ]]; then
+        clear
+      elif [[ "$choice" == layout:* ]]; then
+        exec zellij --layout "${choice#layout:}"
+      elif [[ "$choice" == attach:* ]]; then
+        exec zellij attach "${choice#attach:}"
+      elif [[ "$choice" == resurrect:* ]]; then
+        exec zellij attach "${choice#resurrect:}"
+      fi
+    fi
+  fi
+fi

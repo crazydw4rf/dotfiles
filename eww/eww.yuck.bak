@@ -1,0 +1,44 @@
+(defpoll time :interval "1s"
+  :initial "{}"
+  `date '+{"hour":"%H","min":"%M","sec":"%S","day":"%A","date":"%d","month":"%B","year":"%Y"}'`)
+
+(defwidget clock-widget []
+  (box :class "clock-container"
+       :orientation "v"
+       :space-evenly false
+       :valign "end"
+       :halign "end"
+       :spacing 0
+    (label :class "day-name"
+           :halign "end"
+           :truncate false
+           :text {time.day})
+    (box :class "bottom-line"
+         :orientation "h"
+         :space-evenly false
+         :halign "end"
+         :hexpand true
+         :spacing 20
+      (label :class "time-display"
+             :truncate false
+             :text "${time.hour}:${time.min}")
+      (label :class "sep" :text "·")
+      (label :class "date-display"
+             :truncate false
+             :text "${time.date} ${time.month} ${time.year}"))))
+
+(defwindow clock
+  :monitor 0
+  :namespace "clock"
+  :geometry (geometry
+    :x "48px"
+    :y "53px"
+    :width "100%"
+    :height "100%"
+    :anchor "bottom right")
+  :stacking "bg"
+  :windowtype "desktop"
+  :wm-ignore true
+  :exclusive false
+  :focusable false
+  (clock-widget))

@@ -1,0 +1,87 @@
+(defpoll time :interval "1s"
+  :initial "{}"
+  `echo "{\\"hour\\":\\"$(date +%I)\\",\\"min\\":\\"$(date +%M)\\",\\"sec\\":\\"$(date +%S)\\",\\"day\\":\\"$(date +%A)\\",\\"date\\":\\"$(date +%-d)$([[ $(date +%-d) =~ ^(1|21|31)$ ]] && echo st || ([[ $(date +%-d) =~ ^(2|22)$ ]] && echo nd || ([[ $(date +%-d) =~ ^(3|23)$ ]] && echo rd || echo th)))\\",\\"month\\":\\"$(date +%B)\\",\\"year\\":\\"$(date +%Y)\\",\\"ampm\\":\\"$(date +%p)\\"}"`)
+
+(defpoll quote :interval "1h"
+  :initial "Stay hungry, stay foolish."
+  `curl -s https://zenquotes.io/api/quotes | jq -r '.[0] | .q + " — " + .a' | awk '{for(i=1;i<=NF;i++){printf "%s%s", $i, (i==25?"\\n":OFS)}}' || echo "Keep moving forward."`)
+
+(defwidget clock-widget []
+  (box :class "clock-container"
+       :orientation "v"
+       :space-evenly false
+       :halign "end"
+       :valign "end"
+       :spacing 10
+    
+    ;; Container 1: The Clock (Frozen on the right)
+    (box :class "clock-box"
+         :orientation "h"
+         :space-evenly false
+         :halign "end"
+         :spacing 20
+      (label :class "month-label" 
+             :valign "start"
+             :text {time.month})
+      (box :orientation "v"
+           :space-evenly false
+           :halign "start"
+           :spacing 0
+        (label :class "day-label" 
+               :text {time.day})
+        (label :class "details-label"
+               :halign "start"
+               :text "${time.date} · ${time.hour}:${time.min} ${time.ampm}")))
+    
+    ;; Container 2: The Quote (Independent width)
+    (box :class "quote-box"
+         :orientation "h"
+         :space-evenly false
+         :halign "end"
+      (label :class "quote-label"
+             :halign "end"
+             :wrap true
+             :justify "right"
+             :width 600
+             :text "“${quote}”"))))
+
+
+(defwindow desktop-links
+  :monitor 0
+  :geometry (geometry :x "0%"
+                       :y "0%"
+                       :width "100%"
+                       :height "100%"
+                       :anchor "center")
+  :stacking "bg"
+  :exclusive false
+  :focusable "none"
+  :windowtype "desktop"
+  (box :orientation "horizontal"
+       :space-evenly false
+       :halign "center"
+       :valign "start"
+       :spacing 20
+    (button :class "link-btn"
+            :onclick "xdg-open https://facebook.com &"
+      "Scroll Fesnuk")
+    (button :class "link-btn"
+            :onclick "code || /usr/bin/code &"
+      "Ngoding")))
+
+(defwindow clock
+  :monitor 0
+  :namespace "clock"
+  :geometry (geometry
+    :x "48px"
+    :y "53px"
+    :width "100%"
+    :height "100%"
+    :anchor "bottom right")
+  :stacking "bg"
+  :windowtype "desktop"
+  :wm-ignore true
+  :exclusive false
+  :focusable false
+  (clock-widget))
+
