@@ -1,4 +1,4 @@
--- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+-- https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
 	output = "eDP-1",
 	mode = "preferred",
@@ -6,15 +6,16 @@ hl.monitor({
 	scale = 1,
 })
 
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+-- https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
 	hl.exec_cmd("noctalia")
 end)
 
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
+require("animation")
 require("keybinds")
 require("window_rules")
 require("permissions")
@@ -27,7 +28,7 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
-		follow_mouse = 1,
+		follow_mouse = false,
 
 		sensitivity = 0.3, -- -1.0 - 1.0, 0 means no modification.
 
@@ -76,7 +77,8 @@ hl.config({
 	},
 
 	animations = {
-		enabled = false,
+		enabled = true,
+		workspace_wraparound = true,
 	},
 })
 
@@ -92,22 +94,22 @@ hl.config({
 		layout = "scrolling",
 	},
 
-	-- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
+	-- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
 	dwindle = {
 		preserve_split = true,
 	},
 
-	-- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
+	-- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
 	master = {
 		new_status = "master",
 	},
 
-	-- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
+	-- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
 	scrolling = {
-		fullscreen_on_one_column = true,
+		fullscreen_on_one_column = false,
 		column_width = 0.5,
 		follow_focus = false,
-		wrap_focus = true,
+		wrap_focus = false,
 		wrap_swapcol = true,
 		direction = "right",
 		explicit_column_widths = "0.34, 0.5, 0.67, 1.0",

@@ -1,4 +1,4 @@
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
 -- Hyprland restart required
 hl.config({
 	ecosystem = {

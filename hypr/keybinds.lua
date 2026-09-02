@@ -1,4 +1,4 @@
--- See https://wiki.hypr.land/Configuring/Basics/Binds/
+-- https://wiki.hypr.land/Configuring/Basics/Binds/
 
 local modKey = "SUPER"
 local modAltKey = "ALT"
@@ -32,22 +32,15 @@ superBind("Space", hl.dsp.exec_cmd(noctalia_ipc .. "panel-open launcher"))
 superBind("V", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle clipboard"))
 superBind("Q", hl.dsp.window.close())
 
-superBind("code:59", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle control-center")) -- ','
-superBind("code:60", hl.dsp.exec_cmd(noctalia_ipc .. "settings-toggle")) -- '.'
+superBind("Comma", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle control-center"))
+superBind("Period", hl.dsp.exec_cmd(noctalia_ipc .. "settings-toggle"))
 altBind("Tab", hl.dsp.exec_cmd(noctalia_ipc .. "window-switcher"))
 
 superShiftBind("M", hl.dsp.exit())
 superBind("E", hl.dsp.exec_cmd(fileManager))
 superBind("S", hl.dsp.window.float({ action = "toggle" }))
 superBind("P", hl.dsp.window.pseudo())
-
-superBind("U", hl.dsp.layout("togglesplit"))
-
--- Move focus with mainMod + arrow keys
-superBind("H", hl.dsp.focus({ direction = "left" })):set_enabled(false)
-superBind("L", hl.dsp.focus({ direction = "right" })):set_enabled(false)
-superBind("J", hl.dsp.focus({ direction = "down" }))
-superBind("K", hl.dsp.focus({ direction = "up" }))
+superBind("U", hl.dsp.layout("togglesplit")) --- dwindle layout only
 
 -- Scrolling layout
 superBind("mouse_down", hl.dsp.layout("move +col"))
@@ -56,11 +49,13 @@ superBind("mouse_up", hl.dsp.layout("move -col"))
 superBind("H", hl.dsp.layout("focus l"))
 superBind("L", hl.dsp.layout("focus r"))
 
-superShiftBind("H", hl.dsp.layout("swapcol r"))
-superShiftBind("L", hl.dsp.layout("swapcol l"))
+superBind("J", hl.dsp.layout("swapcol l"))
+superBind("K", hl.dsp.layout("swapcol r"))
 
 superBind("equal", hl.dsp.layout("colresize +conf"))
 superBind("minus", hl.dsp.layout("colresize -conf"))
+
+superBind("F", hl.dsp.layout("colresize 1.0"))
 
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0
@@ -73,6 +68,8 @@ superShiftBind("equal", hl.dsp.window.move({ workspace = "special:magic" }))
 
 superShiftBind("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 superShiftBind("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+superShiftBind("J", hl.dsp.focus({ workspace = "e-1" }))
+superShiftBind("K", hl.dsp.focus({ workspace = "e+1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 superBind("mouse:272", hl.dsp.window.drag(), { mouse = true })
