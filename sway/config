@@ -2,14 +2,10 @@ font pango:ZedMono NF Medium 8
 titlebar_border_thickness 0
 titlebar_padding 1
 
-exec swaybg -m fill -i $HOME/.wallpaper
-exec dunst
-exec swayidle
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
-exec dex -a -e sway
-exec wl-paste --type text --watch cliphist store
-exec wl-paste --type image --watch cliphist store
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP PATH
+exec caffeinate
+exec noctalia
 
 output eDP-1 scale 1
 
@@ -20,4 +16,14 @@ input "type:touchpad" {
 
 include keybinds
 include window_rules
-include bar
+
+# include bar
+# set $WALLPAPER_DIR "$HOME/Pictures/wallcy"
+#
+# exec swaybg -m fill -i $HOME/.wallpaper
+# exec swayidle
+# exec awww-daemon & sleep 2 && wallcy $WALLPAPER_DIR 180
+# exec dunst
+# exec wl-paste --type text --watch cliphist store
+# exec wl-paste --type image --watch cliphist store
+# exec dex -a -e sway

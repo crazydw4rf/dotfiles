@@ -5,6 +5,7 @@ set $down j
 set $left h
 set $right l
 set $mod Mod4
+set $ipc noctalia msg
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -13,25 +14,28 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 # tiling_drag modifier titlebar
 
-bindsym $mod+q kill
-bindsym $mod+Return exec kitty -1
-bindsym $mod+space exec j4-dmenu-desktop -I --dmenu="wmenu -p Launch: -i"
-bindsym $mod+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
-bindsym $mod+e exec kitty -1 --class "yazi" -e yazi
-bindsym $mod+Shift+v exec audio_dev_switcher
-bindsym $mod+Shift+a exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim "$FILE" && wl-copy < "$FILE"
-bindsym $mod+Shift+d exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" "$FILE" && wl-copy < "$FILE"
-bindsym $mod+Shift+s exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(slurp)" "$FILE" && wl-copy < "$FILE"
-bindsym Mod1+Shift+a exec grim - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-bindsym Mod1+Shift+d exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused? == true) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-bindsym Mod1+Shift+s exec grim -g "$(slurp)" - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
-bindsym $mod+Shift+x exec hyprlock
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessUp exec brightnessctl set +2%
-bindsym XF86MonBrightnessDown exec brightnessctl set 2%-
+bindsym $mod+Shift+space exec $ipc panel-toggle launcher
+bindsym $mod+Shift+comma exec $ipc panel-toggle control-center
+bindsym $mod+comma exec $ipc settings-toggle
+bindsym --no-repeat $mod+q kill
+bindsym --no-repeat $mod+Return exec kitty -1
+bindsym --no-repeat $mod+m exec kitty -1 --class rmpc -e rmpc
+bindsym --no-repeat $mod+space exec pkill wmenu || j4-dmenu-desktop -I --dmenu='wmenu -p Launch: -i'
+# bindsym --no-repeat $mod+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+bindsym --no-repeat $mod+v exec noctalia msg panel-toggle clipboard
+bindsym --no-repeat $mod+e exec kitty -1 --class "yazi" -e yazi
+bindsym --no-repeat $mod+Shift+v exec audio_dev_switcher
+bindsym --no-repeat $mod+Shift+a exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim "$FILE" && wl-copy < "$FILE"
+bindsym --no-repeat $mod+Shift+s exec FILE="$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" && grim -g "$(slurp)" "$FILE" && wl-copy < "$FILE"
+bindsym --no-repeat Mod1+Shift+a exec grim - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+bindsym --no-repeat Mod1+Shift+s exec grim -g "$(slurp)" - | swappy -f - -o "$HOME/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"
+bindsym --locked --no-repeat $mod+Shift+x exec hyprlock
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 2%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 2%-
+bindsym --locked --no-repeat XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+bindsym --locked --no-repeat XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +2%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 2%-
 
 # change focus
 bindsym $mod+$left focus left
@@ -58,27 +62,27 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+o split h
+bindsym --no-repeat $mod+o split h
 
 # split in vertical orientation
-bindsym $mod+p split v
+bindsym --no-repeat $mod+p split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym --no-repeat $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+Shift+x layout stacking
-bindsym Mod1+Shift+w layout tabbed
-bindsym Mod1+Shift+e layout toggle split
+bindsym --no-repeat Mod1+Shift+x layout stacking
+bindsym --no-repeat Mod1+Shift+w layout tabbed
+bindsym --no-repeat Mod1+Shift+e layout toggle split
 
 bindsym $mod+bracketright workspace next
 bindsym $mod+bracketleft workspace prev
 
 # toggle tiling / floating
-bindsym $mod+s floating toggle
+bindsym --no-repeat $mod+s floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+z focus mode_toggle
+bindsym --no-repeat $mod+z focus mode_toggle
 
 # focus the parent container
 bindsym $mod+Shift+z focus parent
@@ -131,7 +135,7 @@ bindsym Mod1+9 move container to workspace number $ws9
 bindsym Mod1+0 move container to workspace number $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym --no-repeat $mod+Shift+c reload
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -159,7 +163,7 @@ mode "resize" {
   bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym --no-repeat $mod+r mode "resize"
 
 set $power_menu "Power Menu: [s]leep [h]ibernate [l]ogout [r]eboot [u]shutdown"
 
@@ -174,7 +178,7 @@ mode $power_menu {
   bindsym Escape mode "default"
 }
 
-bindsym $mod+backspace mode $power_menu
+bindsym --no-repeat $mod+backspace mode $power_menu
 
 bindsym $mod+equal exec swaymsg 'resize grow width 50 px' && sleep 0.01 && swaymsg 'resize grow height 20 px'
 bindsym $mod+minus exec swaymsg 'resize shrink width 50 px' && sleep 0.01 && swaymsg 'resize shrink height 20 px'

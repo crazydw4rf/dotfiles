@@ -1,14 +1,24 @@
 # vim: set filetype=i3config :
 
 default_border pixel 2
+hide_edge_borders both
 default_floating_border pixel 2
 for_window [class="^.*"] border pixel 2
 for_window [floating] border normal
 
 for_window [app_id="kitty"] opacity 0.975
 for_window [app_id="zed"] opacity 0.975
+for_window [app_id="rmpc"] opacity 0.975
 
 for_window [app_id="yazi"] floating enable
 for_window [app_id="yazi"] resize set 1300 px 900 px
 for_window [app_id="yazi"] move position center
+
+
+for_window [app_id="rmpc"] floating enable
+for_window [app_id="rmpc"] resize set 1300 px 900 px
+for_window [app_id="rmpc"] move position center
+
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 

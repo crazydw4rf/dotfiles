@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+usage() {
+  echo "Usage:"
+  echo "$(basename $0) <wallpaper directory> [interval in second]"
+}
+
+[ $# -lt 1 ] && {
+  echo >&2 "Provide at least one arguments"
+  usage
+  exit 1
+}
+
+DIR_PATH="$(realpath "$1")"
+
+[ ! -d "$DIR_PATH" ] && {
+  echo >&2 "'$DIR_PATH': Directory not found"
+  exit 1
+}
+
+INTERVAL=${2:-300}
+
+echo "Wallpaper directory path: '$DIR_PATH'"
+echo "Wallpaper change interval: $INTERVAL second"
+
+while :; do
+  wp=$(find "$DIR_PATH" -type f,l | shuf -n 1)
+  awww img --transition-type any "$wp"
+  sleep $INTERVAL
+done

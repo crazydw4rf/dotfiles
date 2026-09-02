@@ -1,8 +1,11 @@
+# vim: set filetype=i3config :
+
 bar {
   font pango:Zed Mono NF Medium 10
   status_command i3status-rs
   tray_output *
   tray_padding 4
+  mode dock
   colors {
     background #151515
     statusline #ffffff
