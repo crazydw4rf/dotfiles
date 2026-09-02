@@ -1,8 +1,15 @@
-nmap \ i
-nmap ; :
+let &t_SI = "\e[6 q"
+let &t_SR = "\e[4 q"
+let &t_EI = "\e[2 q"
+
+autocmd VimEnter * silent! execute "!echo -ne '\e[2 q'"
 
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set number
+set nospell
+set relativenumber
+set clipboard=unnamedplus
 
 syntax on

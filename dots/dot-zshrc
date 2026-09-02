@@ -49,7 +49,7 @@ zi snippet OMZT::fishy
 [ -f "$HOME/.aliases" ]   && source "$HOME/.aliases"
 
 [[ "$TERM_PROGRAM" == "tmux" || -z "$TERM_PROGRAM" ]] && {
-  (( $+commands[fastfetch] )) && [ -z "$ZELLIJ" ] && fastfetch
+  (( $+commands[fastfetch] )) && env -u ZELLIJ fastfetch
   (( $+commands[task] ))      && task due:today or due:tomorrow or due:2day list 2>/dev/null
 } || true
 
