@@ -11,6 +11,7 @@ local allowed_commands = {
 		"grim",
 		"hyprpicker",
 		"noctalia",
+		"wf-recorder",
 	},
 
 	["plugin"] = {

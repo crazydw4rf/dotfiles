@@ -6,9 +6,12 @@ hl.monitor({
 	scale = 1,
 })
 
+hl.env("BONGOCAT_ENABLE_EVDEV", "1")
+
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
 	hl.exec_cmd("noctalia")
+	hl.exec_cmd("caffeinate")
 end)
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
@@ -28,7 +31,7 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
-		follow_mouse = false,
+		follow_mouse = 1,
 
 		sensitivity = 0.3, -- -1.0 - 1.0, 0 means no modification.
 
@@ -43,7 +46,7 @@ hl.config({
 	general = {
 		gaps_in = -1,
 		gaps_out = -1,
-		gaps_workspaces = 2,
+		gaps_workspaces = -1,
 
 		border_size = 2,
 
@@ -69,7 +72,7 @@ hl.config({
 		shadow = { enabled = false },
 
 		blur = {
-			enabled = false,
+			enabled = true,
 			size = 2,
 			passes = 1,
 			vibrancy = 0.1696,
@@ -85,6 +88,7 @@ hl.config({
 hl.config({
 	misc = {
 		force_default_wallpaper = 0,
+    focus_on_activate = true,
 		disable_hyprland_logo = true,
 	},
 })
@@ -104,15 +108,15 @@ hl.config({
 		new_status = "master",
 	},
 
-	-- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
+	-- https://wiki.hypr.land/Configgring/Layouts/Scrolling-Layout/
 	scrolling = {
-		fullscreen_on_one_column = false,
-		column_width = 0.5,
-		follow_focus = false,
-		wrap_focus = false,
+		fullscreen_on_one_column = true,
+		column_width = 0.62,
+		follow_focus = true,
+		wrap_focus = true,
 		wrap_swapcol = true,
 		direction = "right",
-		explicit_column_widths = "0.34, 0.5, 0.67, 1.0",
+		explicit_column_widths = "0.3, 0.5, 0.62, 0.73, 0.84, 1.0",
 	},
 })
 

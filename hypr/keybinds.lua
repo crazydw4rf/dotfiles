@@ -28,18 +28,30 @@ local terminal = "kitty -1"
 local noctalia_ipc = "noctalia msg "
 
 superBind("Return", hl.dsp.exec_cmd(terminal))
-superBind("Space", hl.dsp.exec_cmd(noctalia_ipc .. "panel-open launcher"))
+superBind("Space", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle launcher"))
 superBind("V", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle clipboard"))
+superBind("B", hl.dsp.exec_cmd(noctalia_ipc .. "bar-toggle"))
+superBind("Backspace", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle session"))
+superShiftBind("P", hl.dsp.window.pin())
 superBind("Q", hl.dsp.window.close())
+superBind("Z", function()
+	local active = hl.get_active_window()
+	local is_floating = active and active.floating or false
+	hl.dispatch(hl.dsp.window.cycle_next({ floating = not is_floating }))
+end)
 
 superBind("Comma", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle control-center"))
 superBind("Period", hl.dsp.exec_cmd(noctalia_ipc .. "settings-toggle"))
 altBind("Tab", hl.dsp.exec_cmd(noctalia_ipc .. "window-switcher"))
 
+superShiftBind("S", hl.dsp.exec_cmd(noctalia_ipc .. "screenshot-region"))
+superShiftBind("A", hl.dsp.exec_cmd(noctalia_ipc .. "screenshot-fullscreen"))
+
 superShiftBind("M", hl.dsp.exit())
 superBind("E", hl.dsp.exec_cmd(fileManager))
 superBind("S", hl.dsp.window.float({ action = "toggle" }))
 superBind("P", hl.dsp.window.pseudo())
+superBind("D", hl.dsp.focus({ workspace = 99 }))
 superBind("U", hl.dsp.layout("togglesplit")) --- dwindle layout only
 
 -- Scrolling layout
@@ -47,15 +59,21 @@ superBind("mouse_down", hl.dsp.layout("move +col"))
 superBind("mouse_up", hl.dsp.layout("move -col"))
 
 superBind("H", hl.dsp.layout("focus l"))
+superBind("J", hl.dsp.layout("focus b"))
+superBind("K", hl.dsp.layout("focus t"))
 superBind("L", hl.dsp.layout("focus r"))
 
-superBind("J", hl.dsp.layout("swapcol l"))
-superBind("K", hl.dsp.layout("swapcol r"))
+superShiftBind("J", hl.dsp.layout("swapcol l"))
+superShiftBind("K", hl.dsp.layout("swapcol r"))
 
 superBind("equal", hl.dsp.layout("colresize +conf"))
 superBind("minus", hl.dsp.layout("colresize -conf"))
 
-superBind("F", hl.dsp.layout("colresize 1.0"))
+superBind("code:34", hl.dsp.layout("consume_or_expel prev")) -- [
+superBind("code:35", hl.dsp.layout("consume_or_expel next")) -- ]
+
+superBind("F", hl.dsp.layout("colresize 1"))
+superShiftBind("F", hl.dsp.window.fullscreen())
 
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0
@@ -68,8 +86,8 @@ superShiftBind("equal", hl.dsp.window.move({ workspace = "special:magic" }))
 
 superShiftBind("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 superShiftBind("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-superShiftBind("J", hl.dsp.focus({ workspace = "e-1" }))
-superShiftBind("K", hl.dsp.focus({ workspace = "e+1" }))
+superShiftBind("H", hl.dsp.focus({ workspace = "e-1" }))
+superShiftBind("L", hl.dsp.focus({ workspace = "e+1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 superBind("mouse:272", hl.dsp.window.drag(), { mouse = true })

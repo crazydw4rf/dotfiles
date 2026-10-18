@@ -41,6 +41,21 @@ hl.layer_rule({
 	blur_popups = true,
 })
 
+hl.layer_rule({
+	name = "noctalia bar",
+	match = {
+		namespace = "noctalia-bar-default",
+	},
+	xray = false,
+	dim_around = false,
+	order = 9999,
+})
+
+hl.window_rule({
+	match = { class = ".*" },
+	no_blur = true,
+})
+
 hl.window_rule({
 	name = "move-hyprland-run",
 	match = { class = "hyprland-run" },
@@ -53,4 +68,52 @@ hl.window_rule({
 	match = { class = "dev.noctalia.Noctalia" },
 	float = true,
 	size = { 1080, 920 },
+})
+
+hl.window_rule({
+	match = { fullscreen = 2 },
+	idle_inhibit = "fullscreen",
+})
+
+hl.window_rule({
+	match = { class = "kitty" },
+	opacity = 0.97333,
+	no_blur = false,
+})
+
+--[[hl.window_rule({
+	match = { class = "steam_app_default" },
+	workspace = "9 silent",
+})]]
+
+hl.window_rule({
+	match = { title = "FarCry" },
+	workspace = "2 silent",
+})
+
+hl.window_rule({
+	match = { title = "BongoCat" },
+	border_size = -1,
+	pin = true,
+	no_close_for = 1,
+	no_initial_focus = true,
+	no_follow_mouse = true,
+	no_focus = true,
+	decorate = false,
+	move = { 9999, 9999 },
+})
+
+hl.window_rule({
+	match = { title = "BongoCat.+" },
+	border_size = -1,
+})
+
+hl.window_rule({
+	match = { class = "floatlrc" },
+	border_size = -1,
+})
+
+hl.window_rule({
+	match = { class = "(thunar|Thunar)", title = "(Rename|Move|Copy).*" },
+	float = true,
 })
