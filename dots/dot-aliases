@@ -1,7 +1,6 @@
 # vim: set filetype=sh :
 
 alias ls='exa --color=auto --icons=auto'
-alias cd='z'
 alias code='nvim'
 alias podamn='podman'
 

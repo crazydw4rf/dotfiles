@@ -1,9 +1,10 @@
+" cursor fix
 let &t_SI = "\e[6 q"
 let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
+au VimEnter * silent! execute "!echo -ne '\e[2 q'"
 
-autocmd VimEnter * silent! execute "!echo -ne '\e[2 q'"
-
+" some default settings
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -11,5 +12,27 @@ set number
 set nospell
 set relativenumber
 set clipboard=unnamedplus
+set ignorecase " vim search case-insensitive
+set smartcase
+set autoread
+au FocusGained,BufEnter * silent! checktime
 
+" syntax highlight
+filetype plugin indent on
+set autoindent
 syntax on
+
+" keybindings
+nnoremap <space>e <cmd>Dir<cr>
+
+" plugins loader
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+Plug 'habamax/vim-dir'
+Plug 'sheerun/vim-polyglot'
+Plug 'yelog/vim-flash'
+Plug 'jiangmiao/auto-pairs'
+Plug 'airblade/vim-gitgutter'
+
+call plug#end()

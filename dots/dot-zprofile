@@ -8,9 +8,6 @@ export PATH="$HOME/.local/bin:\
 $GOPATH/bin:\
 $HOME/.bun/bin:\
 $HOME/.cargo/bin:\
-$HOME/.pub-cache/bin:\
-$HOME/fvm/versions/stable/bin/cache/dart-sdk/bin:\
-$HOME/fvm/versions/stable/bin:\
 $PATH"
 
 export QT_QPA_PLATFORMTHEME=qt6ct
