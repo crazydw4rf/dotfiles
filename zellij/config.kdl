@@ -21,6 +21,7 @@ keybinds {
     unbind "Ctrl m"
     unbind "Ctrl b"
     unbind "Ctrl x"
+    unbind "Ctrl o"
 
     search {
         unbind "u"
@@ -70,17 +71,23 @@ keybinds {
       unbind "Ctrl p"
       unbind "Ctrl n"
       unbind "Ctrl m"
+      unbind "Ctrl o"
 
-        bind "Alt t" { SwitchToMode "RenameTab"; TabNameInput 0; }
-        bind "Alt r" { SwitchToMode "RenamePane"; PaneNameInput 0; }
-        bind "Alt a" {
-          LaunchPlugin "zellij:session-manager" {
-            floating true
-            move_to_focused_pane true
-          };
+      bind "Alt o" { SwitchToMode "Session"; }
+      bind "Alt t" { SwitchToMode "RenameTab"; TabNameInput 0; }
+      bind "Alt r" { SwitchToMode "RenamePane"; PaneNameInput 0; }
+      bind "Alt a" {
+        LaunchPlugin "zellij:session-manager" {
+          floating true
+          move_to_focused_pane true
+        };
 
-          SwitchToMode "Normal";
-        }
+        SwitchToMode "Normal";
+      }
+    }
+
+    session {
+      bind "Esc" { SwitchToMode "Normal"; }
     }
 
     renametab {
@@ -96,6 +103,7 @@ keybinds {
     }
 }
 
+scroll_mode_sync false
 on_force_close "detach"
 simplified_ui true
 default_cwd "~"
