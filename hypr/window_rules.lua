@@ -1,11 +1,8 @@
--- Ignore maximize requests from all apps. You'll probably like this.
-local suppressMaximizeRule = hl.window_rule({
+hl.window_rule({
 	name = "suppress-maximize-events",
 	match = { class = ".*" },
-
 	suppress_event = "maximize",
 })
-suppressMaximizeRule:set_enabled(true)
 
 -- Fix some dragging issues with XWayland
 hl.window_rule({
@@ -85,33 +82,6 @@ hl.window_rule({
 	match = { class = "steam_app_default" },
 	workspace = "9 silent",
 })]]
-
-hl.window_rule({
-	match = { title = "FarCry" },
-	workspace = "2 silent",
-})
-
-hl.window_rule({
-	match = { title = "BongoCat" },
-	border_size = -1,
-	pin = true,
-	no_close_for = 1,
-	no_initial_focus = true,
-	no_follow_mouse = true,
-	no_focus = true,
-	decorate = false,
-	move = { 9999, 9999 },
-})
-
-hl.window_rule({
-	match = { title = "BongoCat.+" },
-	border_size = -1,
-})
-
-hl.window_rule({
-	match = { class = "floatlrc" },
-	border_size = -1,
-})
 
 hl.window_rule({
 	match = { class = "(thunar|Thunar)", title = "(Rename|Move|Copy).*" },

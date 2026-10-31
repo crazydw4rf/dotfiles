@@ -6,12 +6,10 @@ hl.monitor({
 	scale = 1,
 })
 
-hl.env("BONGOCAT_ENABLE_EVDEV", "1")
-
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
-	hl.exec_cmd("noctalia")
-	hl.exec_cmd("caffeinate")
+	hl.dsp.exec_cmd("noctalia")
+	hl.dsp.exec_cmd("caffeinate")
 end)
 
 -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
@@ -33,7 +31,7 @@ hl.config({
 
 		follow_mouse = 1,
 
-		sensitivity = 0.3, -- -1.0 - 1.0, 0 means no modification.
+		sensitivity = 0.5, -- -1.0 - 1.0, 0 means no modification.
 
 		touchpad = {
 			natural_scroll = true,
@@ -46,7 +44,7 @@ hl.config({
 	general = {
 		gaps_in = -1,
 		gaps_out = -1,
-		gaps_workspaces = -1,
+		gaps_workspaces = 1,
 
 		border_size = 2,
 
@@ -64,7 +62,7 @@ hl.config({
 
 	decoration = {
 		rounding = 0,
-		rounding_power = false,
+		rounding_power = 1,
 
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,
@@ -88,7 +86,7 @@ hl.config({
 hl.config({
 	misc = {
 		force_default_wallpaper = 0,
-    focus_on_activate = true,
+		focus_on_activate = true,
 		disable_hyprland_logo = true,
 	},
 })
@@ -110,20 +108,36 @@ hl.config({
 
 	-- https://wiki.hypr.land/Configgring/Layouts/Scrolling-Layout/
 	scrolling = {
-		fullscreen_on_one_column = true,
-		column_width = 0.62,
+		fullscreen_on_one_column = false,
+		column_width = 0.73,
 		follow_focus = true,
 		wrap_focus = true,
 		wrap_swapcol = true,
 		direction = "right",
-		explicit_column_widths = "0.3, 0.5, 0.62, 0.73, 0.84, 1.0",
+		explicit_column_widths = "0.3, 0.5, 0.6, 0.7, 0.8, 1",
 	},
 })
 
 hl.gesture({
 	fingers = 3,
+	mods = "SUPER",
 	direction = "horizontal",
 	action = "workspace",
+})
+
+hl.gesture({
+	fingers = 3,
+	direction = "swipe",
+	action = "scroll_move",
+})
+
+hl.gesture({
+	fingers = 2,
+	mods = "SUPER",
+	direction = "pinch",
+	action = "cursor_zoom",
+	zoom_level = 2,
+	mode = "live",
 })
 
 -- For Noctalia Color templates

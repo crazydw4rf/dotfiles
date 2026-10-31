@@ -4,94 +4,93 @@ local modKey = "SUPER"
 local modAltKey = "ALT"
 
 ---@type fun(key: string|number, dispatcher: HL.Dispatcher|function, opts?: HL.BindOptions): HL.Keybind
-local superBind = function(keys, dispatcher, opts)
+local function bind_super(keys, dispatcher, opts)
 	return hl.bind(modKey .. " + " .. keys, dispatcher, opts)
 end
 
 ---@type fun(key: string|number, dispatcher: HL.Dispatcher|function, opts?: HL.BindOptions): HL.Keybind
-local superShiftBind = function(key, dispatcher, opts)
+local function bind_super_shift(key, dispatcher, opts)
 	return hl.bind(modKey .. " + SHIFT + " .. key, dispatcher, opts)
 end
 
 ---@type fun(key: string|number, dispatcher: HL.Dispatcher|function, opts?: HL.BindOptions): HL.Keybind
-local altBind = function(key, dispatcher, opts)
+local function bind_alt(key, dispatcher, opts)
 	return hl.bind(modAltKey .. " + " .. key, dispatcher, opts)
 end
 
----@type fun(key: string|number, dispatcher: HL.Dispatcher|function, opts?: HL.BindOptions): HL.Keybind
-local altShiftBind = function(key, dispatcher, opts)
-	return hl.bind(modAltKey .. " + SHIFT + " .. key, dispatcher, opts)
+---@type fun(message: string): HL.Dispatcher
+local function noctalia_ipc(message)
+	return hl.dsp.exec_cmd("noctalia msg " .. message)
 end
 
 local fileManager = "thunar"
 local terminal = "kitty -1"
-local noctalia_ipc = "noctalia msg "
 
-superBind("Return", hl.dsp.exec_cmd(terminal))
-superBind("Space", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle launcher"))
-superBind("V", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle clipboard"))
-superBind("B", hl.dsp.exec_cmd(noctalia_ipc .. "bar-toggle"))
-superBind("Backspace", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle session"))
-superShiftBind("P", hl.dsp.window.pin())
-superBind("Q", hl.dsp.window.close())
-superBind("Z", function()
+bind_super("Return", hl.dsp.exec_cmd(terminal))
+bind_super("Space", noctalia_ipc("panel-toggle launcher"))
+bind_super("V", noctalia_ipc("panel-toggle clipboard"))
+bind_super("B", noctalia_ipc("bar-toggle"))
+bind_super("Backspace", noctalia_ipc("panel-toggle session"))
+bind_super_shift("P", hl.dsp.window.pin())
+bind_super("Q", hl.dsp.window.close())
+bind_super("Z", function()
 	local active = hl.get_active_window()
 	local is_floating = active and active.floating or false
 	hl.dispatch(hl.dsp.window.cycle_next({ floating = not is_floating }))
 end)
 
-superBind("Comma", hl.dsp.exec_cmd(noctalia_ipc .. "panel-toggle control-center"))
-superBind("Period", hl.dsp.exec_cmd(noctalia_ipc .. "settings-toggle"))
-altBind("Tab", hl.dsp.exec_cmd(noctalia_ipc .. "window-switcher"))
+bind_super("Comma", noctalia_ipc("panel-toggle control-center"))
+bind_super("Period", noctalia_ipc("settings-toggle"))
+bind_alt("Tab", noctalia_ipc("window-switcher"))
 
-superShiftBind("S", hl.dsp.exec_cmd(noctalia_ipc .. "screenshot-region"))
-superShiftBind("A", hl.dsp.exec_cmd(noctalia_ipc .. "screenshot-fullscreen"))
+bind_super_shift("S", noctalia_ipc("screenshot-region"))
+bind_super_shift("A", noctalia_ipc("screenshot-fullscreen"))
 
-superShiftBind("M", hl.dsp.exit())
-superBind("E", hl.dsp.exec_cmd(fileManager))
-superBind("S", hl.dsp.window.float({ action = "toggle" }))
-superBind("P", hl.dsp.window.pseudo())
-superBind("D", hl.dsp.focus({ workspace = 99 }))
-superBind("U", hl.dsp.layout("togglesplit")) --- dwindle layout only
+bind_super_shift("M", hl.dsp.exit())
+bind_super("E", hl.dsp.exec_cmd(fileManager))
+bind_super("S", hl.dsp.window.float({ action = "toggle" }))
+bind_super("P", hl.dsp.window.pseudo())
+bind_super("D", hl.dsp.focus({ workspace = 99 }))
+bind_super("U", hl.dsp.layout("togglesplit")) --- dwindle layout only
 
 -- Scrolling layout
-superBind("mouse_down", hl.dsp.layout("move +col"))
-superBind("mouse_up", hl.dsp.layout("move -col"))
+bind_super("mouse_down", hl.dsp.layout("move +col"))
+bind_super("mouse_up", hl.dsp.layout("move -col"))
 
-superBind("H", hl.dsp.layout("focus l"))
-superBind("J", hl.dsp.layout("focus b"))
-superBind("K", hl.dsp.layout("focus t"))
-superBind("L", hl.dsp.layout("focus r"))
+bind_super("H", hl.dsp.layout("focus l"))
+bind_super("J", hl.dsp.layout("focus b"))
+bind_super("K", hl.dsp.layout("focus t"))
+bind_super("L", hl.dsp.layout("focus r"))
 
-superShiftBind("J", hl.dsp.layout("swapcol l"))
-superShiftBind("K", hl.dsp.layout("swapcol r"))
+bind_super_shift("J", hl.dsp.layout("swapcol l"))
+bind_super_shift("K", hl.dsp.layout("swapcol r"))
 
-superBind("equal", hl.dsp.layout("colresize +conf"))
-superBind("minus", hl.dsp.layout("colresize -conf"))
+bind_super("equal", hl.dsp.layout("colresize +conf"))
+bind_super("minus", hl.dsp.layout("colresize -conf"))
 
-superBind("code:34", hl.dsp.layout("consume_or_expel prev")) -- [
-superBind("code:35", hl.dsp.layout("consume_or_expel next")) -- ]
+bind_super("code:34", hl.dsp.layout("consume_or_expel prev")) -- [
+bind_super("code:35", hl.dsp.layout("consume_or_expel next")) -- ]
 
-superBind("F", hl.dsp.layout("colresize 1"))
-superShiftBind("F", hl.dsp.window.fullscreen())
+bind_super("F", hl.dsp.layout("colresize 1"))
+bind_super_shift("F", hl.dsp.window.fullscreen())
 
 for i = 1, 10 do
 	local key = i % 10 -- 10 maps to key 0
-	superBind(key, hl.dsp.focus({ workspace = i }))
-	altBind(key, hl.dsp.window.move({ workspace = i }))
+	bind_super(key, hl.dsp.focus({ workspace = i }))
+	bind_alt(key, hl.dsp.window.move({ workspace = i }))
 end
 
-superShiftBind("minus", hl.dsp.workspace.toggle_special("magic"))
-superShiftBind("equal", hl.dsp.window.move({ workspace = "special:magic" }))
+bind_super_shift("minus", hl.dsp.workspace.toggle_special("magic"))
+bind_super_shift("equal", hl.dsp.window.move({ workspace = "special:magic" }))
 
-superShiftBind("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-superShiftBind("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-superShiftBind("H", hl.dsp.focus({ workspace = "e-1" }))
-superShiftBind("L", hl.dsp.focus({ workspace = "e+1" }))
+bind_super_shift("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+bind_super_shift("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+bind_super_shift("H", hl.dsp.focus({ workspace = "e-1" }))
+bind_super_shift("L", hl.dsp.focus({ workspace = "e+1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-superBind("mouse:272", hl.dsp.window.drag(), { mouse = true })
-superBind("mouse:273", hl.dsp.window.resize(), { mouse = true })
+bind_super("mouse:272", hl.dsp.window.drag(), { mouse = true })
+bind_super("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
 hl.bind(
