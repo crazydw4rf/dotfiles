@@ -1,5 +1,3 @@
--- https://wiki.hypr.land/Configuring/Basics/Binds/
-
 local modKey = "SUPER"
 local modAltKey = "ALT"
 

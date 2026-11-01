@@ -1,4 +1,3 @@
--- https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
 	output = "eDP-1",
 	mode = "preferred",
@@ -6,13 +5,12 @@ hl.monitor({
 	scale = 1,
 })
 
--- https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
-	hl.dsp.exec_cmd("noctalia")
-	hl.dsp.exec_cmd("caffeinate")
+	hl.exec_cmd("noctalia")
+	hl.exec_cmd("caffeinate")
+ 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 end)
 
--- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
@@ -39,7 +37,6 @@ hl.config({
 	},
 })
 
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
 		gaps_in = -1,
@@ -53,10 +50,7 @@ hl.config({
 			inactive_border = "rgba(595959aa)",
 		},
 
-		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
 		resize_on_border = true,
-
-		-- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
 		allow_tearing = false,
 	},
 
@@ -96,17 +90,14 @@ hl.config({
 		layout = "scrolling",
 	},
 
-	-- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
 	dwindle = {
 		preserve_split = true,
 	},
 
-	-- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
 	master = {
 		new_status = "master",
 	},
 
-	-- https://wiki.hypr.land/Configgring/Layouts/Scrolling-Layout/
 	scrolling = {
 		fullscreen_on_one_column = false,
 		column_width = 0.73,
